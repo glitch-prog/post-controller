@@ -46,8 +46,15 @@ const SignUpScreen = ({navigation}) => {
   const handleOnPressNavigate = () => navigation.navigate('signInScreen');
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Post Controller</Text>
-      <View>
+      <View style={styles.signSection}>
+        <TouchableOpacity onPress={handleOnPressNavigate}>
+          <Text style={styles.signBtn}>Sign In</Text>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Text style={[styles.signBtn, styles.signBtnActive]}>Sign Up</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
           placeholder="Email"
@@ -60,12 +67,9 @@ const SignUpScreen = ({navigation}) => {
           value={password}
           onChangeText={handleOnChangePassword}
         />
-        <TouchableOpacity style={styles.btnSign} onPress={signInUser}>
-          <Text style={styles.textBtn}>Sign Up</Text>
-        </TouchableOpacity>
       </View>
-      <TouchableOpacity onPress={handleOnPressNavigate}>
-        <Text>Already registered? Sign In</Text>
+      <TouchableOpacity style={styles.btnSign} onPress={signInUser}>
+        <Text style={styles.textBtn}>Sign Up</Text>
       </TouchableOpacity>
     </View>
   );
@@ -80,6 +84,27 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     // alignItems: 'center',
+  },
+
+  inputContainer: {
+    width: '80%',
+  },
+
+  signSection: {
+    width: '80%',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+
+  signBtn: {
+    fontSize: 36,
+    color: '#afafaf',
+  },
+
+  signBtnActive: {
+    color: '#000000',
   },
 
   title: {
