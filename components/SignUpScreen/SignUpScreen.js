@@ -48,28 +48,30 @@ const SignUpScreen = ({navigation}) => {
     <View style={styles.container}>
       <View style={styles.signSection}>
         <TouchableOpacity onPress={handleOnPressNavigate}>
-          <Text style={styles.signBtn}>Sign In</Text>
+          <Text style={styles.signBtn}>Вход</Text>
         </TouchableOpacity>
         <TouchableOpacity>
-          <Text style={[styles.signBtn, styles.signBtnActive]}>Sign Up</Text>
+          <Text style={[styles.signBtn, styles.signBtnActive]}>
+            Регистрация
+          </Text>
         </TouchableOpacity>
       </View>
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
-          placeholder="Email"
+          placeholder="Почта"
           value={email}
           onChangeText={handleOnChangeEmail}
         />
         <TextInput
           style={styles.input}
-          placeholder="Password"
+          placeholder="Пароль"
           value={password}
           onChangeText={handleOnChangePassword}
         />
       </View>
       <TouchableOpacity style={styles.btnSign} onPress={signInUser}>
-        <Text style={styles.textBtn}>Sign Up</Text>
+        <Text style={styles.textBtn}>Зарегистрироваться</Text>
       </TouchableOpacity>
     </View>
   );

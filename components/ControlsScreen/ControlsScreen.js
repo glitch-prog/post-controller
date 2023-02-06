@@ -13,7 +13,7 @@ const ControlsScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Post controller status</Text>
+      <Text style={styles.title}>Состояние</Text>
       <View style={styles.batterySection}>
         <Icon name="battery-1" size={200} color={'red'} />
         <Text style={styles.batteryText}>25%</Text>
@@ -23,7 +23,7 @@ const ControlsScreen = () => {
         <View style={styles.controlsBtnFirst}>
           <View style={styles.leftContainer}>
             <Icon name="lock" size={40} />
-            <Text>Lock</Text>
+            <Text>Открыть</Text>
           </View>
           <Switch
             trackColor={{false: '#767577', true: '#4F80FF'}}
@@ -36,7 +36,7 @@ const ControlsScreen = () => {
         <View style={styles.controlsBtn}>
           <View style={styles.leftContainer}>
             <Icon name="lightbulb-o" size={40} />
-            <Text>Light</Text>
+            <Text>Закрыть</Text>
           </View>
           <Switch
             trackColor={{false: '#767577', true: '#4F80FF'}}
@@ -50,7 +50,7 @@ const ControlsScreen = () => {
         <View style={styles.controlsBtn}>
           <View style={styles.leftContainer}>
             <Icon name="shield" size={40} />
-            <Text>Signal</Text>
+            <Text>Сигнал</Text>
           </View>
           <Switch
             trackColor={{false: '#767577', true: '#4F80FF'}}
@@ -62,7 +62,7 @@ const ControlsScreen = () => {
         </View>
       </View>
       <TouchableOpacity style={styles.tableBtn}>
-        <Text style={styles.controlsBtnText}>Check Table</Text>
+        <Text style={styles.controlsBtnText}>Проверить таблицу</Text>
       </TouchableOpacity>
     </View>
   );

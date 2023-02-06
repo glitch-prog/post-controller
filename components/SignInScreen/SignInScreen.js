@@ -36,29 +36,29 @@ const SignInScreen = ({navigation}) => {
     <View style={styles.container}>
       <View style={styles.signSection}>
         <TouchableOpacity>
-          <Text style={[styles.signBtn, styles.signBtnActive]}>Sign In</Text>
+          <Text style={[styles.signBtn, styles.signBtnActive]}>Вход</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={handleOnPressNavigate}>
-          <Text style={styles.signBtn}>Sign Up</Text>
+          <Text style={styles.signBtn}>Регистрация</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
-          placeholder="Email"
+          placeholder="Почта"
           value={email}
           onChangeText={handleOnChangeEmail}
         />
 
         <TextInput
           style={styles.input}
-          placeholder="Password"
+          placeholder="Пароль"
           value={password}
           onChangeText={handleOnChangePassword}
         />
       </View>
       <TouchableOpacity style={styles.btnSign} onPress={signInUser}>
-        <Text style={styles.textBtn}>Sign In</Text>
+        <Text style={styles.textBtn}>Войти</Text>
       </TouchableOpacity>
     </View>
   );
