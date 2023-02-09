@@ -1,15 +1,54 @@
+import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Switch} from 'react-native';
 import {NodePlayerView} from 'react-native-nodemediaclient';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
+import Geolocation from '@react-native-community/geolocation';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ControlsScreen = () => {
+  const navigation = useNavigation();
+
+  const getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('@history');
+      if (value !== null) {
+        console.log(value);
+      }
+      return value;
+    } catch (e) {
+      // error reading value
+    }
+  };
+
+  const storeData = async value => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem('@history', jsonValue);
+    } catch (e) {
+      // saving error
+    }
+  };
+
   const [isEnabled, setIsEnabled] = useState(false);
   const [isEnabled2, setIsEnabled2] = useState(false);
   const [isEnabled3, setIsEnabled3] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   const toggleSwitch2 = () => setIsEnabled2(previousState => !previousState);
-  const toggleSwitch3 = () => setIsEnabled3(previousState => !previousState);
+  const toggleSwitch3 = () => {
+    setIsEnabled3(previousState => !previousState);
+    const value = getData();
+    storeData({...value});
+    console.log(new Date());
+  };
+
+  const handleOnPressNavigateToTable = () => {
+    navigation.navigate('tableScreen');
+  };
+
+  useEffect(() => {
+    Geolocation.watchPosition(info => console.log(info));
+  });
 
   return (
     <View style={styles.container}>
@@ -23,7 +62,7 @@ const ControlsScreen = () => {
         <View style={styles.controlsBtnFirst}>
           <View style={styles.leftContainer}>
             <Icon name="lock" size={40} />
-            <Text>Открыть</Text>
+            <Text>{isEnabled3 ? 'Закрыто' : 'Открыто'}</Text>
           </View>
           <Switch
             trackColor={{false: '#767577', true: '#4F80FF'}}
@@ -33,36 +72,11 @@ const ControlsScreen = () => {
             value={isEnabled3}
           />
         </View>
-        <View style={styles.controlsBtn}>
-          <View style={styles.leftContainer}>
-            <Icon name="lightbulb-o" size={40} />
-            <Text>Закрыть</Text>
-          </View>
-          <Switch
-            trackColor={{false: '#767577', true: '#4F80FF'}}
-            thumbColor={'#f4f3f4'}
-            ios_backgroundColor="#3e3e3e"
-            onValueChange={toggleSwitch2}
-            value={isEnabled2}
-          />
-        </View>
-
-        <View style={styles.controlsBtn}>
-          <View style={styles.leftContainer}>
-            <Icon name="shield" size={40} />
-            <Text>Сигнал</Text>
-          </View>
-          <Switch
-            trackColor={{false: '#767577', true: '#4F80FF'}}
-            thumbColor={'#f4f3f4'}
-            ios_backgroundColor="#3e3e3e"
-            onValueChange={toggleSwitch}
-            value={isEnabled}
-          />
-        </View>
       </View>
-      <TouchableOpacity style={styles.tableBtn}>
-        <Text style={styles.controlsBtnText}>Проверить таблицу</Text>
+      <TouchableOpacity
+        style={styles.tableBtn}
+        onPress={handleOnPressNavigateToTable}>
+        <Text style={styles.controlsBtnText}>Открыть журнал</Text>
       </TouchableOpacity>
     </View>
   );

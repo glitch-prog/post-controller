@@ -34,27 +34,83 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import SignInScreen from './components/SignInScreen/SignInScreen';
 import SignUpScreen from './components/SignUpScreen/SignUpScreen';
 import ControlsScreen from './components/ControlsScreen/ControlsScreen';
+import {TableScreen} from './components/TableScreen/TableScreen';
+import PushNotification from 'react-native-push-notification';
+// import PushNotificationIOS from '@react-native-community/push-notification-ios';
 
 const Stack = createNativeStackNavigator();
 
 function App() {
+  const testPush = () => {
+    PushNotification.configure({
+      onRegister: function (token) {
+        console.log('TOKEN:', token);
+      },
+      onNotification: function (notification) {
+        console.log('NOTIFICATION:', notification);
+
+        // notification.finish(PushNotificationIOS.FetchResult.NoData);
+      },
+
+      onRegistrationError: function (err) {
+        console.error(err.message, err);
+      },
+      permissions: {
+        alert: true,
+        badge: true,
+        sound: true,
+      },
+      popInitialNotification: true,
+
+      requestPermissions: true,
+    });
+    PushNotification.localNotification({
+      title: 'My Notification Title', // (optional)
+      message: 'My Notification Message', // (required)
+    });
+  };
+
+  const testCancel = () => {
+    PushNotification.cancelAllLocalNotifications();
+  };
+
+  const setSchedule = () =>
+    PushNotification.localNotificationSchedule({
+      //... You can use all the options from localNotifications
+      channelId: '123',
+      message: 'My Notification Message', // (required)
+      date: new Date(Date.now() + 10 * 1000), // in 60 secs
+      allowWhileIdle: false, // (optional) set notification to work while on doze, default: false
+
+      /* Android Only Properties */
+      repeatTime: 1, // (optional) Increment of configured repeatType. Check 'Repeating Notifications' section for more info.
+    });
+
+  setSchedule();
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen
+        {/* <Stack.Screen
           name="signInScreen"
           component={SignInScreen}
           options={{headerShown: false}}
-        />
-        <Stack.Screen
+        /> */}
+        {/* <Stack.Screen
           name="signUpScreen"
           component={SignUpScreen}
           options={{headerShown: false}}
-        />
+        /> */}
         <Stack.Screen
           name="controlsScreen"
           component={ControlsScreen}
           options={{headerShown: false}}
+        />
+
+        <Stack.Screen
+          name="tableScreen"
+          component={TableScreen}
+          options={{headerTitle: 'Журнал'}}
         />
       </Stack.Navigator>
     </NavigationContainer>
